@@ -6,6 +6,8 @@ fi
 
 if [[ $1 == "help" ]]; then
   echo "Type mkclass [name_of_class] [language] (languages can currently be -cpp or -py) Please refer to README for more info"
+elif [[ $# == 1 ]]; then
+  echo "Please add a language argument. Type mkclass help for more info."
 fi 
 
 if [[ $2 == "-cpp" ]]; then # Create a C++ class
