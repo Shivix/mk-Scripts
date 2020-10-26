@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 if [[ $1 = "help" ]]; then
   echo "Type mkclass [name_of_class] [language] (languages can currently be -cpp or -py) Please refer to README for more info"
