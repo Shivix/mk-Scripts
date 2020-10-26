@@ -1,4 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
+
+if [[ $1 = "help" ]]; then
+  echo "Type mkclass [name_of_class] [language] (languages can currently be -cpp or -py) Please refer to README for more info"
+fi 
 
 if [[ $2 = "-cpp" ]]; then # Create a C++ class
 	touch "$1.cpp"
