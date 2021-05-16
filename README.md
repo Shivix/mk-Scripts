@@ -1,36 +1,33 @@
-# mkclass
+# mk Scripts
 
-mkclass allows you to easily create a class for C++ or Python
+These are a collection of scripts to create parts of projects when programming
+
+Note: currently all besides mkclass are only for C++. **IMPORTANT** most scripts assume your project directory is laid out in the way mkproject sets it
+
+mkproject [name] creates a directory named after the project, an include and src folder and a basic CMakeLists.txt which it then runs. It will also place a compile_commands.json into the main directory
+
+mkclass [name] creates a class for C++ or Python
+
+mkheader [name] creates a header file in the include folder
 
 It will create the required files and fill out the basic syntax for the creation of a class.\
-For example a .hpp file will contain:
+For example a basic .hpp file will contain:
 ```Cpp
-#ifndef EXAMPLE_HPP
-#define EXAMPLE_HPP
+#ifndef ProjectName_Example_hpp
+#define ProjectName_Example_hpp
 
-class example {
 
-};
 
-#endif //EXAMPLE_HPP
+#endif //ProjectName_Example_hpp
 ```
-
-This is used at the command line by typing mkclass name_of_class -cpp(or -py for python)\
-Example: mkclass example -cpp
-
-This can also be used within vim however it will not inherit the alias so one must type :!mkclass.sh name -language
 
 # Installation
 
-First clone the repository using `git clone https://github.com/Shivix/mkclass.git`
+First clone the repository using $`git clone https://github.com/Shivix/mkclass.git`
 
-Then run `cd mkclass`
+Then simply run $`chmod +x install.sh && ./install.sh`
 
-Then run `sudo cp ./mkclass.sh /usr/local/bin` You may also create a bin directory within home and add that to your environment variables and copy the file to there.
+if you want to be able to type mkproject vs mkproject.sh you need to add it as an alias for your shell.
 
-Then run `sudo chmod +x /usr/local/bin/mkclass.sh` to make the new file executable.
-
-Finally open up ~/.bashrc in your text editor of choice and add the following line to it:\
-`alias mkclass="mkclass.sh"`\
-This makes the script executable using mkclass rather than mkclass.sh.
+if you're using bash you can put `alias mkproject="mkproject.sh"` into your .bashrc file
 
