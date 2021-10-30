@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ $# == 0 ]]; then # checks if the command was run without arguments
+if [[ $# == 0 ]]; then
   echo "Type mkclass help for usage instructions"
   exit
 fi
@@ -14,7 +14,8 @@ else
 	file_type=$2
 fi 
 
-if [[ $file_type == "-cpp" ]]; then # Create a C++ class
+# Create a C++ class
+if [[ $file_type == "-cpp" ]]; then
 	while [ ! -f CMakeLists.txt ]
 	do
 		if [ -d bin ]; then
@@ -39,7 +40,8 @@ cat > include/$1.hpp << EOF
 #endif //${guard_name}
 EOF
 
-elif [[ $file_type == "-py" ]]; then # Create a python class
+# Create a python class
+elif [[ $file_type == "-py" ]]; then
   touch "$1.py" 
   echo "class $1:" >> "$1.py"
 fi

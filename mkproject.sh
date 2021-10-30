@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ $# == 0 ]]; then # checks if the command was run without arguments
+if [[ $# == 0 ]]; then
   echo "Please include project name as argument"
   exit
 fi
@@ -24,29 +24,26 @@ add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 add_executable($1 src/main.cpp)
 EOF
 
-# create directories src/ inc etc. test if lib
 mkdir src
 mkdir include
 
-# create main file if not lib
+# create & fill main file
 touch src/main.cpp
 cat > src/main.cpp << EOF
 #include <iostream>
 
 int main (){
-
 	std::cout << "Hello world!\n";
 	return 0;
 }
 EOF
-# run cmake for debug and release
 
-mkdir Debug && cd Debug
-cmake -DCMAKE_BUILD_TYPE=Debug ..
+mkdir cmake-build-debug && cd cmake-build-debug
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=./install/ ..
 cd ..
 
-mkdir Release && cd Release
-cmake -DCMAKE_BUILD_TYPE=Release ..
+mkdir cmake-build-release && cd cmake-build-release
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./install/ ..
 cd ..
 
-cp Debug/compile_commands.json compile_commands.json
+cp cmake-build-debug/compile_commands.json compile_commands.json

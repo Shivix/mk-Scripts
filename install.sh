@@ -11,3 +11,6 @@ sudo cp mkproject.sh /usr/local/bin/mkproject.sh
 
 chmod +x mktest.sh
 sudo cp mktest.sh /usr/local/bin/mktest.sh
+
+chmod +x mkbuild.sh
+sudo cp mkbuild.sh /usr/local/bin/mkbuild.sh

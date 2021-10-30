@@ -55,12 +55,12 @@ BOOST_AUTO_TEST_SUITE(main_test)
 BOOST_AUTO_TEST_SUITE_END()
 EOF
 
-mkdir Debug && cd Debug
+mkdir cmake-build-debug && cd cmake-build-debug
 cmake -DCMAKE_BUILD_TYPE=Debug ..
 cd ..
 
-mkdir Release && cd Release
+mkdir cmake-build-release && cd cmake-build-release
 cmake -DCMAKE_BUILD_TYPE=Release ..
 cd ..
 
-cp Debug/compile_commands.json compile_commands.json
+cp cmake-build-debug/compile_commands.json compile_commands.json
