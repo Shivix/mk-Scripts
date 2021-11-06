@@ -23,11 +23,6 @@ For example a basic .hpp file will contain:
 
 # Installation
 
-First clone the repository using $`git clone https://github.com/Shivix/mkclass.git`
+First clone the repository using `git clone https://github.com/Shivix/mkclass.git`
 
-Then simply run $`chmod +x install.sh && ./install.sh`
-
-if you want to be able to type mkproject vs mkproject.sh you need to add it as an alias for your shell.
-
-if you're using bash you can put `alias mkproject="mkproject.sh"` into your .bashrc file
-
+Then just run `make install`
