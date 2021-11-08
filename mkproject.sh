@@ -6,7 +6,7 @@ if [[ $# == 0 ]]; then
 fi
 
 # create CMakeLists.txt & fill with contents
-mkdir $1 && cd $1
+mkdir "$1" && cd "$1" || exit
 
 touch CMakeLists.txt
 
@@ -38,11 +38,11 @@ int main (){
 }
 EOF
 
-mkdir cmake-build-debug && cd cmake-build-debug
+mkdir cmake-build-debug && cd cmake-build-debug || exit
 cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=./install/ ..
 cd ..
 
-mkdir cmake-build-release && cd cmake-build-release
+mkdir cmake-build-release && cd cmake-build-release || exit
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./install/ ..
 cd ..
 

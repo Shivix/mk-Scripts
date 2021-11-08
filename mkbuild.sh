@@ -23,8 +23,8 @@ else
 fi
 
 build_dir=cmake-build-$1
-mkdir $build_dir
-cd $build_dir
+mkdir "$build_dir"
+cd "$build_dir" || exit
 
 cmake -DCMAKE_BUILD_TYPE=$build_type -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_C_COMPILER=$c_compiler -DCMAKE_CXX_COMPILER=$cpp_compiler ..
 

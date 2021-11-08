@@ -4,14 +4,14 @@ while [ ! -f CMakeLists.txt ]
 do
 	if [ -d bin ]; then
 		echo "Failed to find CMakeLists.txt"
-		exit -1;
+		exit 1;
 	fi
 	cd ..
 done
 
 project_name=${PWD##*/}
 
-mkdir test && cd test
+mkdir test && cd test || exit
 
 # create CMakeLists.txt with boost.test
 
@@ -55,11 +55,11 @@ BOOST_AUTO_TEST_SUITE(main_test)
 BOOST_AUTO_TEST_SUITE_END()
 EOF
 
-mkdir cmake-build-debug && cd cmake-build-debug
+mkdir cmake-build-debug && cd cmake-build-debug || exit
 cmake -DCMAKE_BUILD_TYPE=Debug ..
 cd ..
 
-mkdir cmake-build-release && cd cmake-build-release
+mkdir cmake-build-release && cd cmake-build-release || exit
 cmake -DCMAKE_BUILD_TYPE=Release ..
 cd ..
 

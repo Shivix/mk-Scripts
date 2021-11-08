@@ -9,16 +9,16 @@ while [ ! -f CMakeLists.txt ]
 do
 	if [ -d bin ]; then
 		echo "Failed to find CMakeLists.txt"
-		exit -1;
+		exit 1;
 	fi
 	cd ..
 done
 
-touch include/$1.hpp
+touch include/"$1".hpp
 
 guard_name=${PWD##*/}_$1_hpp
 
-cat > include/$1.hpp << EOF
+cat > include/"$1".hpp << EOF
 #ifndef ${guard_name}
 #define ${guard_name}
 

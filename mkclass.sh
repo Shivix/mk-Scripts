@@ -20,18 +20,18 @@ if [[ $file_type == "-cpp" ]]; then
 	do
 		if [ -d bin ]; then
 			echo "Failed to find CMakeLists.txt"
-			exit -1;
+			exit 1;
 		fi
 		cd ..
 	done
 
-	touch src/$1.cpp
-	touch include/$1.hpp
+	touch src/"$1".cpp
+	touch include/"$1".hpp
 	echo "#include \"include/$1.hpp\"" >> "src/$1.cpp"
 
 	guard_name=${PWD##*/}_$1_hpp
 
-cat > include/$1.hpp << EOF
+cat > include/"$1".hpp << EOF
 #ifndef ${guard_name}
 #define ${guard_name}
 
