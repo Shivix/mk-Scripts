@@ -1,8 +1,23 @@
 #!/usr/bin/env bash
 
-if [[ $# == 0 ]]; then
-  echo "Please include the name of the header"
-  exit
+set -e
+
+usage="
+Usage: mkheader <header_name>
+"
+
+while getopts ":h" arg; do
+  case $arg in
+    h | *)
+        echo "$usage"
+        exit 0
+        ;;
+  esac
+done
+
+if [[ ! $# == 1 ]]; then
+  echo "$usage"
+  exit 0
 fi
 
 while [ ! -f CMakeLists.txt ]
@@ -16,7 +31,9 @@ done
 
 touch include/"$1".hpp
 
-guard_name=${PWD##*/}_$1_hpp
+cap_pwd=${PWD^^}
+guard_pwd=$(echo $cap_pwd | sed 's/-//g')
+guard_name=${guard_pwd##*/}_${1^^}_HPP
 
 cat > include/"$1".hpp << EOF
 #ifndef ${guard_name}

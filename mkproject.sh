@@ -1,12 +1,27 @@
 #!/usr/bin/env bash
 
-if [[ $# == 0 ]]; then
-  echo "Please include project name as argument"
-  exit
+set -e
+
+usage="
+Usage: mkproject <project_name>
+"
+
+while getopts ":h" arg; do
+    case $arg in
+    h | *)
+        echo "$usage"
+        exit 0
+        ;;
+    esac
+done
+
+if [[ ! $# == 1 ]]; then
+  echo "$usage"
+  exit 0
 fi
 
 # create CMakeLists.txt & fill with contents
-mkdir "$1" && cd "$1" || exit
+mkdir "$1" && cd "$1"
 
 touch CMakeLists.txt
 
@@ -37,13 +52,3 @@ int main (){
 	return 0;
 }
 EOF
-
-mkdir cmake-build-debug && cd cmake-build-debug || exit
-cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=./install/ ..
-cd ..
-
-mkdir cmake-build-release && cd cmake-build-release || exit
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./install/ ..
-cd ..
-
-cp cmake-build-debug/compile_commands.json compile_commands.json

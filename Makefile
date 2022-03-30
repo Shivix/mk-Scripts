@@ -15,7 +15,7 @@ MKHEADER_DIR = $(PREFIX)/bin/mkheader
 
 .PHONY: all
 all:
-	@echo did nothing. try targets: install, or uninstall.
+	@echo did nothing. try targets: install
 
 .PHONY: install
 install:
@@ -25,13 +25,4 @@ install:
 	install $(MKCLASS) $(MKCLASS_DIR)
 	install $(MKHEADER) $(MKHEADER_DIR)
 	# install $(MANPAGE) $(INSTMAN)
-
-.PHONY: uninstall
-uninstall:
-	$(RM) $(MKBUILD_DIR)
-	$(RM) $(MKPROJECT_DIR)
-	$(RM) $(MKTEST_DIR)
-	$(RM) $(MKCLASS_DIR)
-	$(RM) $(MKHEADER_DIR)
-	# $(RM) $(INSTMAN)/$(MANPAGE)
 

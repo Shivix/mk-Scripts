@@ -1,20 +1,35 @@
 #!/usr/bin/env bash
 
-if [[ $# != 1 ]]; then
-  echo "Please specify release, debug, clang-release or clang-debug"
-  exit
+set -e
+
+usage="
+Usage: mkbuild [ -r | Build in release mode, debug if not provided ] 
+               [ -c | Build using Clang, gcc if not provided ]
+               [ -h | --help ]
+"
+release=false
+clang=false
+while getopts ":rch" arg; do
+  case $arg in
+    r)
+        release=true
+        ;;
+    c)
+        clang=true
+        ;;
+    h | *)
+        echo "$usage"
+        exit 0
+        ;;
+  esac
+done
+
+if [[ ! -f "CMakeLists.txt" ]]; then
+    echo "Cannot find CMakeLists.txt"
+    exit 1
 fi
 
-if [[ $1 == "release" || $1 == "clang-release" ]]; then
-    build_type="Release"
-elif [[ $1 == "debug" || $1 == "clang-debug" ]]; then
-    build_type="Debug"
-else
-    echo "Please specify release, debug, clang-release or clang-debug"
-    exit
-fi
-
-if [[ $1 == "clang-debug" || $1 == "clang-release" ]]; then
+if $clang ; then
     c_compiler="clang"
     cpp_compiler="clang++"
 else
@@ -22,9 +37,15 @@ else
     cpp_compiler="g++"
 fi
 
-build_dir=cmake-build-$1
+if $release ; then
+    build_dir="cmake-build-release"
+    build_mode="Release"
+else
+    build_dir="cmake-build-debug"
+    build_mode="Debug"
+fi
+
 mkdir "$build_dir"
-cd "$build_dir" || exit
+cd "$build_dir"
 
-cmake -DCMAKE_BUILD_TYPE=$build_type -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_C_COMPILER=$c_compiler -DCMAKE_CXX_COMPILER=$cpp_compiler ..
-
+cmake -DCMAKE_BUILD_TYPE=$build_mode -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=$c_compiler -DCMAKE_CXX_COMPILER=$cpp_compiler ..
