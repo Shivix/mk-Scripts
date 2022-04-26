@@ -5,17 +5,22 @@ set -e
 usage="
 Usage: mkbuild [ -r | Build in release mode, debug if not provided ] 
                [ -c | Build using Clang, gcc if not provided ]
+               [ -a | Optional extra CMake arguments ]
                [ -h | --help ]
 "
 release=false
 clang=false
-while getopts ":rch" arg; do
+extra_args=""
+while getopts ":rca:h" arg; do
   case $arg in
     r)
         release=true
         ;;
     c)
         clang=true
+        ;;
+    a)
+        extra_args=${OPTARG}
         ;;
     h | *)
         echo "$usage"
@@ -48,4 +53,4 @@ fi
 mkdir "$build_dir"
 cd "$build_dir"
 
-cmake -DCMAKE_BUILD_TYPE=$build_mode -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=$c_compiler -DCMAKE_CXX_COMPILER=$cpp_compiler ..
+cmake -DCMAKE_BUILD_TYPE=$build_mode -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=$c_compiler -DCMAKE_CXX_COMPILER=$cpp_compiler $extra_args ..
